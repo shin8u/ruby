@@ -6,7 +6,6 @@ class Student
         self.first_name = first_name
         self.middle_name = middle_name
         self.id = id
-        self.git = git
         set_contacts(telegram:telegram, phone_number:phone_number, mail:mail)
         self.git = git
     end
