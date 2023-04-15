@@ -52,7 +52,7 @@ class Student
         self.telegram = telegram
       end
 
-    def id=(last_name)
+    def id=(id)
         raise ArgumentError unless id.nil? || Student.is_id?(id)
         @id = id
       end
