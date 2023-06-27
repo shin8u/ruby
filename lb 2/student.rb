@@ -11,7 +11,7 @@ class Student
     end
 
     def self.is_id?(id)
-        id.match(/^\d+$/)
+        id.to_s.match(/^\d+$/)
     end
     
     def self.is_name?(name)
@@ -38,29 +38,29 @@ class Student
         !git.nil?
       end
     
-      def has_contact?
+    def has_contact?
         !phone.nil? || !telegram.nil? || !mail.nil?
-      end
+    end
     
-      def validate
-        has_git? && has_contact?
-      end
+    def validate
+       has_git? && has_contact?
+    end
     
-      def set_contacts(mail:nil, phone_number:nil, telegram:nil)
-        self.mail = mail
-        self.phone_number = phone_number
-        self.telegram = telegram
-      end
+    def set_contacts(mail:nil, phone_number:nil, telegram:nil)
+       self.mail = mail
+       self.phone_number = phone_number
+       self.telegram = telegram
+    end
 
     def id=(id)
         raise ArgumentError unless id.nil? || Student.is_id?(id)
         @id = id
-      end
+    end
 
     def last_name=(last_name)
         raise ArgumentError unless last_name.nil? || Student.is_name?(last_name)
         @last_name = last_name
-      end
+    end
     
     def first_name=(first_name)
         raise ArgumentError unless first_name.nil? || Student.is_name?(first_name)
@@ -92,6 +92,20 @@ class Student
         @git = git
     end
 
+
+    def get_contact(phone_number, telegram, mail)
+        if !phone_number.nil? then
+            @contact = "номер телефона: #{phone_number}"
+        elsif !telegram.nil?
+            @contact = "телеграм: #{telegram}"
+        elsif !mail.nil?
+            @contact = "почта: #{mail}"
+        else
+           "" 
+        end
+    end   
+
+
     def to_s
         res = "ФИО: #{last_name} #{first_name} #{middle_name}"
         res += " id: #{id}" unless id.nil?
@@ -100,5 +114,17 @@ class Student
         res += " почта: #{mail}" unless mail.nil?
         res += " git: #{git}" unless git.nil?
         res
+    end
+    
+
+    def short_name(last_name, first_name, middle_name)
+        @short_name = "#{@last_name} #{@first_name[0]}.#{@middle_name[0]}."
+    end
+
+
+    def getInfo
+        info = short_name(last_name, first_name, middle_name) + "\n" + get_contact(phone_number, telegram, mail)
+        info += "\n" + "гит: #{git}" unless git.nil?
+        info
     end
 end
