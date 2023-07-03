@@ -1,19 +1,16 @@
-class Student
+require File.expand_path("../student_short", __FILE__)
+
+class Student < Student_short
     attr_reader :id, :last_name, :first_name, :middle_name, :phone_number, :telegram, :mail, :git
 
-    def initialize(id:nil, last_name:, first_name:, middle_name:, phone_number:nil, telegram:nil, mail:nil, git:nil)
+    def initialize(id:nil, last_name:nil, first_name:nil, middle_name:nil, git:nil, phone_number:nil, mail:nil, telegram:nil)
+        super
         self.last_name = last_name
         self.first_name = first_name
         self.middle_name = middle_name
-        self.id = id
         set_contacts(telegram:telegram, phone_number:phone_number, mail:mail)
-        self.git = git
     end
 
-    def self.is_id?(id)
-        id.to_s.match(/^\d+$/)
-    end
-    
     def self.is_name?(name)
         name.match(/^[А-Яа-я]+|[A-Za-z]+$/)
     end
@@ -26,17 +23,13 @@ class Student
         mail.match(/^[A-Za-z\d]+@[A-Za-z\d]+\.[\w]+/)
     end
     
-    def self.is_git?(git)
-        git.match(/^https:\/\/github\.com\/[A-Za-z\d]+$/) || git.match(/^[A-Za-z\d]+$/)
-    end
-    
     def self.is_phone_number?(phone_number)
         phone_number.match(/^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/)
     end
 
     def has_git?
         !git.nil?
-      end
+    end
     
     def has_contact?
         !phone.nil? || !telegram.nil? || !mail.nil?
@@ -92,20 +85,6 @@ class Student
         @git = git
     end
 
-
-    def get_contact(phone_number, telegram, mail)
-        if !phone_number.nil? then
-            @contact = "номер телефона: #{phone_number}"
-        elsif !telegram.nil?
-            @contact = "телеграм: #{telegram}"
-        elsif !mail.nil?
-            @contact = "почта: #{mail}"
-        else
-           "" 
-        end
-    end   
-
-
     def to_s
         res = "ФИО: #{last_name} #{first_name} #{middle_name}"
         res += " id: #{id}" unless id.nil?
@@ -115,15 +94,10 @@ class Student
         res += " git: #{git}" unless git.nil?
         res
     end
-    
-
-    def short_name(last_name, first_name, middle_name)
-        @short_name = "#{@last_name} #{@first_name[0]}.#{@middle_name[0]}."
-    end
 
 
     def getInfo
-        info = short_name(last_name, first_name, middle_name) + "\n" + get_contact(phone_number, telegram, mail)
+        info = short_name + "\n" + contact
         info += "\n" + "гит: #{git}" unless git.nil?
         info
     end
