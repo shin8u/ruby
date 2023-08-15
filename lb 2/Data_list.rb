@@ -1,4 +1,4 @@
-class Data_list_2
+class Data_list
     attr_reader :data
   
     private_class_method :new
