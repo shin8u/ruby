@@ -45,11 +45,6 @@ class Student < Student_short
        self.telegram = telegram
     end
 
-    def id=(id)
-        raise ArgumentError unless id.nil? || Student.is_id?(id)
-        @id = id
-    end
-
     def last_name=(last_name)
         raise ArgumentError unless last_name.nil? || Student.is_name?(last_name)
         @last_name = last_name
@@ -79,11 +74,7 @@ class Student < Student_short
         raise ArgumentError unless mail.nil? || Student.is_mail?(mail)
         @mail = mail
     end
-    
-    def git=(git)
-        raise ArgumentError unless git.nil? || Student.is_git?(git)
-        @git = git
-    end
+
 
     def to_s
         res = "ФИО: #{last_name} #{first_name} #{middle_name}"
