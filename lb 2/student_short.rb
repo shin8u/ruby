@@ -11,7 +11,11 @@ class Student_short
     def self.is_id?(id)
         id.to_s.match(/^\d+$/)
     end
-    
+
+    def get_ids(students)
+        students.all.map { |student| student.id }
+    end
+
     def self.is_short_name?(short_name)
         short_name.match(/^[А-Я][а-я]+\s+[А-Я]\.\s+[А-Я]\.$/)
     end
@@ -66,4 +70,12 @@ class Student_short
         res
     end
 
+    def to_h
+        {
+          short_name: short_name,
+          id: id,
+          contact: contact,
+          git: git
+        }
+    end
 end
