@@ -3,12 +3,17 @@ class Data_list
 
 
   def initialize(data)
-    @data = data
+    self.data = data
     @selected = []
   end
 
+  def data= (data)
+    index = 0
+    @data = data[:data].each { |student| student[:id] = index += 1 }
+  end
+  
   def select(number)
-    @selected << data[:data][number]
+    @selected << data[number]
   end
 
   def get_selected
