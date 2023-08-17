@@ -2,7 +2,6 @@ require_relative 'Data_list'
 
 class Data_list_student_short < Data_list
   attr_reader :column_names, :selected
-  attr_accessor :data
 
   def initialize(data)
     super
