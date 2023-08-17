@@ -9,11 +9,7 @@ class Data_list_student_short < Data_list
   end
 
   def column_count
-    @data[:data][0].size
-  end
-
-  def select(number)
-    @selected << data[:data][number]
+    @data[0].size
   end
 
   def get_names
