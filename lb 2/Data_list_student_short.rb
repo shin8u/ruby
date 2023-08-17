@@ -9,7 +9,7 @@ class Data_list_student_short < Data_list
   end
 
   def column_count
-    @data[0].instance_variables.count
+    @data[:data][0].size
   end
 
   def select(number)
