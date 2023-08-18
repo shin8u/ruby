@@ -25,8 +25,8 @@ class Student_list_JSON
   end
 
   def get_k_n_student_short_list(page, n, data_list:nil)
-    page_list = @students[(page-1)*n, n].map{|stud| Student_short.new(**stud)}
-    return Data_list_student_short.new(page_list) if data_list.nil?
+    page_list = (@students[(page - 1) * n..page * n - 1].map { |stud| stud.to_h })
+    return Data_list_student_short.new(data:page_list) if data_list.nil?
 
     data_list.append(page_list)
   end
