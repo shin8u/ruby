@@ -7,6 +7,17 @@ class Student_list_base
     self.students = []
   end
 
+ def read_file(file_path)
+    raise ArgumentError, 'Файл не найден' unless File.exist?(file_path)
+    list_hash = list_hash_from_str(File.read(file_path))
+    self.students = list_hash.map {|st| Student_short.new(**st)}
+  end
+
+  def write_to_file(file_path)
+    list_hash = @students.map(&:to_h)
+    File.write(file_path, list_hash_to_str(list_hash))
+  end
+  
   def get_student_by_id(id)
     @students.find {|st| st.id==id}
   end
