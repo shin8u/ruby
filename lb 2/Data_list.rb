@@ -11,6 +11,10 @@ class Data_list
     index = 0
     @data = data[:data].each { |student| student[:id] = index += 1 }
   end
+
+  def unselect
+    self.selected = []
+  end
   
   def select(number)
     @selected << data[number]
