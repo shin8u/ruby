@@ -1,17 +1,32 @@
 class Data_table
-    def initialize(data)
-      @data = data
+
+    attr_reader :rows_count, :cols_count
+
+    private
+    attr_writer :table
+    public
+    attr_reader :table
+    def initialize(table:)
+        self.table = table
     end
 
-    def get_element(row, col)
-        @data[row][col]
+    def get_element(row:, col:)
+        return self.table[row][col]
     end
 
-    def get_rows_count
-        @data.size
+    def get_rows_number
+        return self.table.size
     end
 
-    def get_columns_count
-        @data[0].size
+    def each(&block)
+        table.each do |row|
+            block.call(row)
+        end
     end
+
+    def get_cols_number
+        return 0 if table.size == 0
+        return self.table[0].size
+    end
+
 end
